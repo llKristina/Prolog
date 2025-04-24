@@ -42,7 +42,7 @@ question8(X) :- write("8. Ёто птица? (1 Ч да, 0 Ч нет): "), read(X).
 question9(X) :- write("9. ≈сть ли у него клюв? (1 Ч да, 0 Ч нет): "), read(X).
 question10(X):- write("10. ќно траво€дное? (1 Ч да, 0 Ч нет): "), read(X).
 question11(X):- write("11. ћожно ли встретить его в зоопарке? (1 Ч да, 0 Ч нет): "), read(X).
-question12(X):- write("12. ∆ивотное активно днЄм? (1 Ч да, 0 Ч нет): "), read(X). % необ€зательный уточн€ющий
+question12(X):- write("12. ∆ивотное активно днЄм? (1 Ч да, 0 Ч нет): "), read(X).
 
 guess_animal :-
     question1(A1), question2(A2), question3(A3),
