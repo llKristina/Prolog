@@ -43,3 +43,31 @@ count_digits_up(Number, Count) :-
     count_digits_up(NextNumber, RestCount),
     (Digit < 3 -> Count is RestCount + 1 ; Count is RestCount).
 
+%Найти количество делителей числа
+% count_divisors_down(+Number, -Count)
+count_divisors_down(Number, Count) :-
+    count_divisors_down_acc(Number, 1, 0, Count).
+
+count_divisors_down_acc(Number, Divisor, CurrentCount, FinalCount) :-
+    Divisor =< Number, !,
+    (Number mod Divisor =:= 0 -> NewCount is CurrentCount + 1 ; NewCount is CurrentCount),
+    NextDivisor is Divisor + 1,
+    count_divisors_down_acc(Number, NextDivisor, NewCount, FinalCount).
+
+count_divisors_down_acc(Number, Divisor, Count, Count) :-
+    Divisor > Number.
+
+
+% count_divisors_up(+Number, -Count)
+count_divisors_up(Number, Count) :-
+    count_divisors_up_helper(Number, 1, Count).
+
+count_divisors_up_helper(Number, Divisor, 0) :-
+    Divisor > Number, !.
+
+count_divisors_up_helper(Number, Divisor, Count) :-
+    Divisor =< Number,
+    (Number mod Divisor =:= 0 -> Delta = 1 ; Delta = 0),
+    NextDivisor is Divisor + 1,
+    count_divisors_up_helper(Number, NextDivisor, RestCount),
+    Count is RestCount + Delta.
