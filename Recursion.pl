@@ -71,3 +71,76 @@ count_divisors_up_helper(Number, Divisor, Count) :-
     NextDivisor is Divisor + 1,
     count_divisors_up_helper(Number, NextDivisor, RestCount),
     Count is RestCount + Delta.
+
+%Сдвиг влево на 3 позиции
+% read_input(-List)
+read_input(List) :-
+    write('Введите список: '), nl,
+    read(List).
+
+% solve(+List, -Shifted)
+solve(List, Shifted) :-
+    append(Front, Rest, List),
+    length(Front, 3),
+    append(Rest, Front, Shifted).
+
+% print_result(+List)
+print_result(Result) :-
+    write('Результат сдвига: '), write(Result), nl.
+
+main_1 :-
+    read_input(List),
+    solve(List, Result),
+    print_result(Result).
+
+
+%Элементы перед первым минимальным
+% read_input(-List)
+read_input(List) :-
+    write('Введите список: '), nl,
+    read(List).
+
+% solve(+List, -BeforeMin)
+solve(List, BeforeMin) :-
+    min_member(Min, List),
+    append(BeforeMin, [Min|_], List).
+
+% print_result(+Result)
+print_result(BeforeMin) :-
+    write('Элементы до первого минимума: '), write(BeforeMin), nl.
+
+main_2 :-
+    read_input(List),
+    solve(List, Result),
+    print_result(Result).
+
+
+%Проверка локального максимума по индексу
+% read_input(-List, -Index)
+read_input(List, Index) :-
+    write('Введите список: '), nl,
+    read(List),
+    write('Введите индекс (с 0): '), nl,
+    read(Index).
+
+% solve(+List, +Index, -IsMax)
+solve(List, Index, yes) :-
+    nth0(Index, List, Elem),
+    Index > 0,
+    PrevIndex is Index - 1,
+    nth0(PrevIndex, List, Prev),
+    NextIndex is Index + 1,
+    nth0(NextIndex, List, Next),
+    Elem > Prev,
+    Elem > Next, !.
+
+solve(_, _, no).
+
+% print_result(+IsMax)
+print_result(yes) :- write('Да, локальный максимум'), nl.
+print_result(no) :- write('Нет, не максимум'), nl.
+
+main_3 :-
+    read_input(List, Index),
+    solve(List, Index, Result),
+    print_result(Result).
